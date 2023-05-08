@@ -2,8 +2,12 @@ class Book < ApplicationRecord
   belongs_to :user
   has_many :favorites, dependent: :destroy
   has_many :book_comments, dependent: :destroy
-  
   has_many :favorited_users, through: :favorites, source: :user
+  
+  scope :created_days_ago, ->(n) { where(created_at: n.days.ago.all_day) }
+  
+  
+  
   
   
   def self.looks(search, word)
